@@ -3,6 +3,7 @@ import dream_styles
 import setup_caffe_network as su
 import models as ml
 import get_layer_data as gd
+import cam_states
 
 iterator = [
     {
@@ -30,6 +31,8 @@ video_capture = cv2.VideoCapture(0)
 cv2.namedWindow("Video", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("Video", cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
 
+cs = cam_states.CamStates()
+
 last_frame = None
 dreaming = False
 
@@ -49,29 +52,19 @@ while True:
     sum_diff = cv2.sumElems(diff)
     last_frame = gray
 
-    if dreaming:
+    state = cs.get_state(sum_diff[0])
+    if state == 'show_frames':
+        cv2.imshow('Video', frame)
+    elif state == 'start_dreaming':
+        subject_data = gd.get_layers_data_image(net, frame, layer)
+        stl.setup_style_iterator(iterator[0])
+        vis = stl.next_frame(net, style_data, subject_data, layer)
+        cv2.imshow('Video', vis)
+    elif state == 'dreaming':
         vis = stl.next_frame(net, style_data, subject_data, layer)
         cv2.imshow('Video', vis)
     else:
-        cv2.imshow('Video', frame)
-
-    if sum_diff[0] > 4000000:
-        motion = True
-        if dreaming:
-            dreaming = False
-
-    else:
-        if motion:
-            start_time = cv2.getTickCount()
-            motion = False
-        else:
-            how_long = cv2.getTickCount() - start_time
-            if how_long > 2000000000:
-                motion = False
-                if not dreaming:
-                    subject_data = gd.get_layers_data_image(net, frame, layer)
-                    stl.setup_style_iterator(iterator[0])
-                    dreaming = True
+        cv2.imshow('Video', diff)
 
     # if sum_diff[0] > 2000000:
     #     if motion:
