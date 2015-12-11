@@ -1,6 +1,6 @@
 import numpy as np
-import scipy.ndimage as nd
 import images
+import cv2
 
 
 class Styles:
@@ -8,10 +8,14 @@ class Styles:
         pass
 
     def __blur(self, img, sigma):
-        if sigma > 0:
-            img[0] = nd.filters.gaussian_filter(img[0], sigma, order=0)
-            img[1] = nd.filters.gaussian_filter(img[1], sigma, order=0)
-            img[2] = nd.filters.gaussian_filter(img[2], sigma, order=0)
+        if sigma > 0.01:
+            img[0] = cv2.GaussianBlur(img[0], (7, 7), sigma)
+            img[1] = cv2.GaussianBlur(img[1], (7, 7), sigma)
+            img[2] = cv2.GaussianBlur(img[2], (7, 7), sigma)
+        # elif sigma > 0.01:
+        #     img[0] = cv2.medianBlur(img[0], 5)
+        #     img[1] = cv2.medianBlur(img[1], 5)
+        #     img[2] = cv2.medianBlur(img[2], 5)
         return img
 
     @staticmethod

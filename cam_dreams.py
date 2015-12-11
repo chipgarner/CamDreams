@@ -6,83 +6,135 @@ import get_layer_data as gd
 import cam_states
 import numpy as np
 
-iterator = [
-    {
-        'iter_n': 30,
-        'start_sigma': 2.0,
-        'end_sigma': 0.0,
-        'start_step_size': 6.0,
-        'end_step_size': 6.0
-    },
 
-]
+class CamDreams:
+    iterator = [
+        {
+            'iter_n': 20,
+            'start_sigma': 1.5,
+            'end_sigma': 0.0,
+            'start_step_size': 6.0,
+            'end_step_size': 6.0
+        },
 
+    ]
 
-layers = ['inception_3b/5x5_reduce', 'inception_4a/5x5_reduce', 'inception_4c/3x3_reduce', 'inception_5a/3x3_reduce']
-i_layer = 0
+    su.SetupCaffe.gpu_on()
+    net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
 
-su.SetupCaffe.gpu_on()
-net = None
+    stl = dream_styles.Styles()
 
-stl = dream_styles.Styles()
+    video_capture = cv2.VideoCapture(0)
+    cv2.namedWindow("Video", cv2.WND_PROP_FULLSCREEN)
+    cv2.setWindowProperty("Video", cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
 
-video_capture = cv2.VideoCapture(0)
-cv2.namedWindow("Video", cv2.WND_PROP_FULLSCREEN)
-cv2.setWindowProperty("Video", cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
+    cs = cam_states.CamStates()
 
-cs = cam_states.CamStates()
+    last_frame = None
 
-last_frame = None
+    # This is to make the edges black on my 1920 X 1200 (16:10 vs 4:3) display
+    height = 480
+    width = 768
+    black_edges = np.zeros((height, width, 3), np.uint8)
 
-# This is to make the edges black on my 1920 X 1200 (16:10 vs 4:3) display
-height = 480
-width = 768
-black_edges = np.zeros((height, width, 3), np.uint8)
+    def show_image(self, image):
+        self.black_edges[0:480, 64:704] = image
+        cv2.imshow('Video', self.black_edges)
 
+    @staticmethod
+    def input_filter(img):
+        img = cv2.medianBlur(img, 3)
+        img = cv2.medianBlur(img, 3)
+        img = cv2.medianBlur(img, 3)
+        img = cv2.medianBlur(img, 5)
+        img = cv2.bilateralFilter(img, 20, 50, 10)
+        return img
 
-def show_image(image):
-    black_edges[0:480, 64:704] = image
-    cv2.imshow('Video', black_edges)
+    iterations = 80.00
+    index = 0.0
 
+    def fade(self, start_image, end_image):
 
-while True:
+        alpha = 1.0 - self.index / self.iterations
+        beta = self.index / self.iterations
+        self.index += 1.0
+        if self.index > self.iterations:
+            self.index = 0
+            self.cs.state = 'show_frames'  # HACK!
 
-    ret, frame = video_capture.read()
+        return cv2.addWeighted(start_image, alpha, end_image, beta, 0.0)
 
-    if last_frame is None:
-        last_frame = frame
+    # empty put the frame buffer
+    def __get_next_frame(self):
+        delta_t = 0.0
+        while delta_t < 30000000.0:
+            t = cv2.getTickCount()
+            self.video_capture.grab()
+            delta_t = cv2.getTickCount() - t
+        return self.video_capture.retrieve()
 
-    diff = cv2.absdiff(frame, last_frame)
-    sum_diff = cv2.sumElems(diff)
-    last_frame = frame
+    def run(self):
+        layers = ['inception_3b/5x5_reduce', 'inception_4a/5x5_reduce', 'inception_4c/3x3_reduce', 'inception_5a/3x3_reduce']
+        i_layer = 0
 
-    state = cs.get_state(sum_diff[0])
-    if state == 'show_frames':
-        show_image(frame)
-    elif state == 'start_dreaming':
-        layer = layers[i_layer]
-        if i_layer == 0:  # Results change if not reloaded, there may be something in the network tha just need reseting
-            net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
-        i_layer += 1
-        if i_layer >= len(layers):
-            i_layer = 0
-        print layer
-        style_data = gd.get_layers_data(net, 'ImagesIn/425 barn.jpg', layer)
-        subject_data = gd.get_layers_data_image(net, frame, layer)
-        stl.setup_style_iterator(iterator[0])
-        vis = stl.next_frame(net, style_data, subject_data, layer)
-        show_image(vis)
-    elif state == 'dreaming':
-        vis = stl.next_frame(net, style_data, subject_data, layer)
-        show_image(vis + diff / 3)
-        for i in range(0, 3):  # This is slow so empty the video buffer
-            video_capture.grab()
-    else:
-        show_image(diff * 5)
+        num_frames = 0
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        while True:
 
-# When everything is done, release the capture
-video_capture.release()
-cv2.destroyAllWindows()
+            ret, frame = self.__get_next_frame()
+
+            if self.last_frame is None:
+                self.last_frame = frame
+
+            diff = cv2.absdiff(frame, self.last_frame)
+            sum_diff = cv2.sumElems(diff)
+            self.last_frame = frame
+
+            if num_frames < 10:  # The first few frames can be noisy
+                num_frames += 1
+                self.show_image(diff * 5)
+                continue
+
+            state = self.cs.get_state(sum_diff[0])
+            print sum_diff[0]
+            if state == 'show_frames':
+                self.show_image(frame)
+            elif state == 'waiting':
+                self.show_image(diff * 5)
+            elif state == 'fade_dream_to_frame':
+                vis = self.stl.next_frame(self.net, style_data, subject_data, layer)
+                frame = self.fade(vis, frame)
+                self.show_image(frame)
+            elif state == 'fading':
+                frame = self.fade(vis, frame)
+                self.show_image(frame)
+            elif state == 'start_dreaming':
+                layer = layers[i_layer]
+                # if i_layer == 0:  # Results change if not reloaded, there may be something in the network tha just need reseting
+                    # net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
+                i_layer += 1
+                if i_layer >= len(layers):
+                    i_layer = 0
+                print layer
+                style_data = gd.get_layers_data(self.net, 'ImagesIn/717 pickup.jpg', layer)
+                subject_data = gd.get_layers_data_image(self.net, self.input_filter(frame), layer)
+                self.stl.setup_style_iterator(self.iterator[0])
+                vis = self.stl.next_frame(self.net, style_data, subject_data, layer)
+                self.show_image(vis)
+            elif state == 'dreaming':
+                vis = self.stl.next_frame(self.net, style_data, subject_data, layer)
+                self.show_image(vis + diff / 3)
+            elif state == 'dark_screen':
+                self.show_image(diff + 5)
+            else:
+                print state
+                self.show_image(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV))
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+        # When everything is done, release the capture
+        self.video_capture.release()
+        cv2.destroyAllWindows()
+
+CamDreams().run()

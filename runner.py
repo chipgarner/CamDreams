@@ -3,6 +3,7 @@ import setup_caffe_network as su
 import models as ml
 import get_layer_data as gd
 import cv2
+import display
 
 iterator = [
     {
@@ -33,3 +34,7 @@ for i in range(0, iterator[0]['iter_n']):
     vis = cv2.cvtColor(vis, cv2.COLOR_BGR2RGB)
     cv2.imshow('Video', vis)
     cv2.waitKey(1)
+
+vis = cv2.cvtColor(vis, cv2.COLOR_RGB2BGR)
+display.Display().showResultPIL(vis)
+
