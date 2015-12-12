@@ -27,11 +27,10 @@ class TestCamStates(TestCase):
         cs = cam_states.CamStates()
         cs.motion = False
         cs.start_time = 0
-        cs.state = 'not waiting'
 
         ret = cs.get_state(cs.LOW_THRESHOLD - 1)
 
-        assert ret == 'start_dreaming'
+        assert ret == 'waiting'
         assert not cs.motion
 
     def test_get_state_starts_waiting(self):
@@ -51,14 +50,14 @@ class TestCamStates(TestCase):
         cs.start_time = 0
         cs.state = 'not waiting'
 
-        cs.get_state(cs.LOW_THRESHOLD - 1)
+        cs.get_state(cs.HIGH_THRESHOLD + 1)
         ret = cs.get_state(cs.LOW_THRESHOLD - 1)
 
         assert cs.motion_threshold == cs.HIGH_THRESHOLD
         assert ret == 'dreaming'
-        assert not cs.motion
+        assert cs.motion
 
-    def test_get_state_motion_high_to_low_threshold(self):
+    def test_get_state_motion_high_stays_high_threshold(self):
         cs = cam_states.CamStates()
         cs.motion = False
         cs.state = 'dreaming'
@@ -66,9 +65,9 @@ class TestCamStates(TestCase):
 
         cs.get_state(cs.HIGH_THRESHOLD + 1)
 
-        assert cs.motion_threshold == cs.LOW_THRESHOLD
+        assert cs.motion_threshold == cs.HIGH_THRESHOLD
 
-    def test_get_state_dream_over_fade_to_frame_and_start_dreaming(self):
+    def test_get_state_dream_over_fade_to_frame_and_fading(self):
         cs = cam_states.CamStates()
         cs.motion = False
         cs.state = 'dreaming'
@@ -81,7 +80,8 @@ class TestCamStates(TestCase):
 
         ret = cs.get_state(cs.LOW_THRESHOLD - 1)
 
-        assert ret == 'start_dreaming'
+        assert ret == 'fading'
+        assert cs.beta == 0.0
 
     def test_get_state_start_up_nothing_until_high_motion(self):
         cs = cam_states.CamStates()
@@ -99,3 +99,34 @@ class TestCamStates(TestCase):
 
         assert not cs.motion
         assert ret == 'waiting'
+
+    def test_get_state_beta_updates_fading(self):
+        cs = cam_states.CamStates()
+        cs.state = 'fade_dream_to_frame'
+
+        ret = cs.get_state(0)
+
+        assert ret == 'fading'
+        assert cs.beta == 0.0
+
+        cs.get_state(0)
+        assert cs.beta == 1.0 / cs.fade_iterations
+
+        cs.get_state(0)
+        cs.get_state(0)
+        cs.get_state(0)
+        assert cs.beta == 4.0 / cs.fade_iterations
+
+    def test_get_state_fade_over_to_show_frames(self):
+        cs = cam_states.CamStates()
+        cs.state = 'fade_dream_to_frame'
+        cs.get_state(0)
+        cs.get_state(0)
+
+        cs.fade_iter = 81.0
+
+        ret = cs.get_state(0)
+
+        assert ret == "show_frames"
+        assert cs.fade_iter == 0.0  # This must be reset
+        assert cs.beta == 0.0

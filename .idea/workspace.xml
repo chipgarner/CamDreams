@@ -8,8 +8,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cam_dreams.py" afterPath="$PROJECT_DIR$/cam_dreams.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cam_states.py" afterPath="$PROJECT_DIR$/cam_states.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dream_styles.py" afterPath="$PROJECT_DIR$/dream_styles.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runner.py" afterPath="$PROJECT_DIR$/runner.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_camStates.py" afterPath="$PROJECT_DIR$/test_camStates.py" />
     </list>
     <ignored path="CamDreams.iws" />
@@ -34,8 +32,8 @@
       <file leaf-file-name="dream_styles.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dream_styles.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="60" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
+            <state vertical-scroll-proportion="-5.903226">
+              <caret line="34" column="58" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="58" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -55,21 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="get_layer_data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../CommonCaffe/get_layer_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="cam_states.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cam_states.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21978022">
-              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.24784854">
+              <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -79,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/test_camStates.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <caret line="131" column="29" selection-start-line="131" selection-start-column="29" selection-end-line="131" selection-end-column="29" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -90,10 +78,22 @@
       <file leaf-file-name="cam_dreams.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cam_dreams.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.612904">
-              <caret line="92" column="68" selection-start-line="92" selection-start-column="68" selection-end-line="92" selection-end-column="68" />
+            <state vertical-scroll-proportion="-7.548387">
+              <caret line="13" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dreamer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dreamer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="91" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -121,16 +121,17 @@
         <option value="$PROJECT_DIR$/runner.py" />
         <option value="$PROJECT_DIR$/dream_styles.py" />
         <option value="$PROJECT_DIR$/test_camStates.py" />
-        <option value="$PROJECT_DIR$/cam_dreams.py" />
         <option value="$PROJECT_DIR$/cam_states.py" />
+        <option value="$PROJECT_DIR$/dreamer.py" />
+        <option value="$PROJECT_DIR$/cam_dreams.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="427" />
-    <option name="y" value="107" />
+    <option name="x" value="323" />
+    <option name="y" value="172" />
     <option name="width" value="1245" />
-    <option name="height" value="1083" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -173,7 +174,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -216,6 +216,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -459,50 +460,50 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 16h 56m 43s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 09h 21m 00s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 16h 58m 34s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 09h 21m 11s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 16h 58m 42s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 09h 22m 03s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 09m 37s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 09h 22m 44s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 12m 56s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 12h 35m 20s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 13m 55s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 12h 36m 39s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 16m 09s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 12h 36m 53s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 21m 55s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 12h 37m 23s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 22m 40s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 12h 37m 56s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_test_camStates_py - 2015.12.11 at 17h 23m 23s.xml">
+    <history-entry file="py_test_in_test_camStates_py - 2015.12.12 at 15h 20m 34s.xml">
       <configuration name="py.test in test_camStates.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="427" y="107" width="1245" height="1083" extended-state="0" />
+    <frame x="323" y="172" width="1245" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286004" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32779622" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18821605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39977852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32336655" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39977852" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32352942" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914287" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -531,16 +532,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test_camStates.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="51" selection-start-line="84" selection-start-column="51" selection-end-line="84" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cam_dreams.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -838,7 +829,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2165" column="4" selection-start-line="2165" selection-start-column="4" selection-end-line="2165" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -905,14 +895,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../CommonCaffe/get_layer_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../CommonCaffe/setup_caffe_network.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15228426">
@@ -924,7 +906,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24196278">
           <caret line="1826" column="69" selection-start-line="1826" selection-start-column="69" selection-end-line="1826" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -932,6 +913,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../CommonCaffe/get_layer_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30981067">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_camStates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="131" column="29" selection-start-line="131" selection-start-column="29" selection-end-line="131" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -945,30 +944,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_camStates.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dream_styles.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="60" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
+        <state vertical-scroll-proportion="-5.903226">
+          <caret line="34" column="58" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="58" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dreamer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="91" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cam_dreams.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.612904">
-          <caret line="92" column="68" selection-start-line="92" selection-start-column="68" selection-end-line="92" selection-end-column="68" />
+        <state vertical-scroll-proportion="-7.548387">
+          <caret line="13" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -977,8 +976,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cam_states.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21978022">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.24784854">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
           <folding />
         </state>
       </provider>

@@ -26,6 +26,9 @@ class CamStates:
         elif self.state == 'fade_dream_to_frame':
             self.state = 'fading'
 
+        elif self.state == 'fading':
+            self.__fading()
+
         elif motion_detect > self.motion_threshold:
             self.__on_motion_above_threshold()
         else:
@@ -54,5 +57,19 @@ class CamStates:
         if self.state == 'dreaming':
             # self.motion_threshold = self.LOW_THRESHOLD
             self.state = 'show_frames'
-        elif self.state == 'waiting':
+        else:
             self.state = 'start_dreaming'
+
+    beta = 0.0
+    fade_iterations = 80.0
+    fade_iter = 0.0
+
+    def __fading(self):
+        self.fade_iter += 1.0
+
+        if self.fade_iter > self.fade_iterations:
+            self.state = 'show_frames'
+            self.fade_iter = 0.0
+            self.beta = 0.0
+        else:
+            self.beta = self.fade_iter / self.fade_iterations
