@@ -7,8 +7,10 @@ class CamStates:
     motion = False
     start_time = 0
     dream_start = 0
+    low_motion_last_time = 0
+    LOW_MOTION_TIMEOUT = 240000000000
     LOW_THRESHOLD = 2000000
-    HIGH_THRESHOLD = 4500000
+    HIGH_THRESHOLD = 6500000
     DREAM_OVER = 20000000000
     motion_threshold = HIGH_THRESHOLD
 
@@ -16,6 +18,7 @@ class CamStates:
         self.state = 'waiting'
         self.start_time = cv2.getTickCount() + 2000000000  # Startup delay
         self.dream_start = cv2.getTickCount()
+        self.low_motion_last_time = cv2.getTickCount()
         pass
 
     def get_state(self, motion_detect):
@@ -31,7 +34,14 @@ class CamStates:
 
         elif motion_detect > self.motion_threshold:
             self.__on_motion_above_threshold()
+
+        elif cv2.getTickCount() - self.low_motion_last_time > self.LOW_MOTION_TIMEOUT:
+            self.state = 'waiting'
+
         else:
+            if motion_detect > self.LOW_THRESHOLD:
+                self.low_motion_last_time = cv2.getTickCount()
+
             if self.motion:
                 self.start_time = cv2.getTickCount()
                 self.motion = False
@@ -42,7 +52,7 @@ class CamStates:
                         self.state = 'fade_dream_to_frame'
                 elif self.state == 'show_frames':
                     how_long = cv2.getTickCount() - self.start_time
-                    if how_long > 500000000:
+                    if how_long > 7000000000:
                         self.state = 'start_dreaming'
 
         return self.state
@@ -54,6 +64,7 @@ class CamStates:
 
     def __on_motion_above_threshold(self):
         self.motion = True
+        self.low_motion_last_time = cv2.getTickCount()
         if self.state == 'dreaming':
             # self.motion_threshold = self.LOW_THRESHOLD
             self.state = 'show_frames'

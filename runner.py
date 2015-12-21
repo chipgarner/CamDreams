@@ -23,7 +23,7 @@ su.SetupCaffe.gpu_on()
 net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
 
 style_data = gd.get_layers_data(net, 'ImagesIn/elephants2.jpg', layer)
-subject_data = gd.get_layers_data(net, 'ImagesIn/smallwonder.jpg', layer)
+subject_data = gd.get_layers_data(net, 'ImagesIn/smallerwonder.jpg', layer)
 
 stl = dream_styles.Styles()
 

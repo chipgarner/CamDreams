@@ -130,3 +130,15 @@ class TestCamStates(TestCase):
         assert ret == "show_frames"
         assert cs.fade_iter == 0.0  # This must be reset
         assert cs.beta == 0.0
+
+    def test_get_state_no_motion_time_up_to_waiting(self):
+        cs = cam_states.CamStates()
+        cs.state = 'dreaming'
+
+        cs.low_motion_last_time = cv2.getTickCount() - cs.LOW_MOTION_TIMEOUT - 1000000000
+        # print cs.LOW_MOTION_TIMEOUT
+        # print cv2.getTickCount() - cs.low_motion_last_time
+
+        ret = cs.get_state(0)
+
+        assert ret == 'waiting'
