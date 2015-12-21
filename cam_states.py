@@ -1,3 +1,5 @@
+# Motion detection based camera states
+
 import cv2
 
 
