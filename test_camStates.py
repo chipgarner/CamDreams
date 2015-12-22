@@ -136,8 +136,6 @@ class TestCamStates(TestCase):
         cs.state = 'dreaming'
 
         cs.low_motion_last_time = cv2.getTickCount() - cs.LOW_MOTION_TIMEOUT - 1000000000
-        # print cs.LOW_MOTION_TIMEOUT
-        # print cv2.getTickCount() - cs.low_motion_last_time
 
         ret = cs.get_state(0)
 

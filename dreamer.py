@@ -36,7 +36,7 @@ class Dreamer:
         self.__i_layer += 1
         if self.__i_layer >= len(layers):
             self.__i_layer = 0
-        self.style_data = gd.get_layers_data(self.net, 'ImagesIn/2 white shark.jpg', self.layer)
+        self.style_data = gd.get_layers_data(self.net, 'ImagesIn/elephants2.jpg', self.layer)
         self.subject_data = gd.get_layers_data_image(self.net, self.__input_filter(frame), self.layer)
         self.stl.setup_style_iterator(self.iterator[0])
         vis = self.stl.next_frame(self.net, self.style_data, self.subject_data, self.layer)

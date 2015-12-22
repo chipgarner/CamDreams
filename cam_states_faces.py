@@ -10,13 +10,11 @@ class CamStatesFaces:
     start_time = 0
     dream_start = 0
     faces_latest_time = 0
+    dream_count = 1
     NO_FACES_TIMEOUT = 240000000000
     PERSIST_FACES_TIMER = 5000000000
     FACES_DELAY_TIMER = 20000000000
-    LOW_THRESHOLD = 2000000
-    HIGH_THRESHOLD = 6500000
     DREAM_OVER = 20000000000
-    motion_threshold = HIGH_THRESHOLD
 
     def __init__(self):
         self.state = 'waiting'
@@ -36,7 +34,18 @@ class CamStatesFaces:
                 self.state = 'fade_dream_to_frame'
 
         elif self.state == 'fade_dream_to_frame':
+            # self.dream_count += 1
+            # if self.dream_count > 3:
+            #     self.dream_count = 0
+            #     self.state = 'fade_backgrounds'
+            # else:
             self.state = 'fading'
+
+        elif self.state == 'fade_backgrounds':
+            self.state = 'fading_backgrounds'
+
+        elif self.state == 'fading_backgrounds':
+            self.__fading()
 
         elif self.state == 'fading':
             self.__fading()
@@ -54,24 +63,9 @@ class CamStatesFaces:
             if self.state != 'waiting':
                 self.state = 'start_dreaming'
 
-        # else:
-            # if self.faces:
-            #     self.start_time = cv2.getTickCount()
-            #     self.faces = False
-            # else:
-            #     if self.state == 'dreaming':
-            #         how_long = cv2.getTickCount() - self.dream_start
-            #         if how_long > self.DREAM_OVER:
-            #             self.state = 'fade_dream_to_frame'
-            #     elif self.state == 'show_frames':
-            #         how_long = cv2.getTickCount() - self.start_time
-            #         if how_long > 7000000000:
-            #             self.state = 'start_dreaming'
-
         return self.state
 
     def __dreaming_start(self):
-        self.motion_threshold = self.HIGH_THRESHOLD
         self.dream_start = cv2.getTickCount()
         self.state = 'dreaming'
 
@@ -95,6 +89,12 @@ class CamStatesFaces:
 
         if self.fade_iter > self.fade_iterations:
             self.state = 'show_frames'
+            if not self.state == 'fading_backgrounds':
+                self.dream_count += 1
+                if self.dream_count > 4:
+                    self.dream_count = 0
+                    self.state = 'fade_backgrounds'
+
             self.fade_iter = 0.0
             self.beta = 0.0
         else:
