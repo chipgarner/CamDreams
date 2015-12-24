@@ -12,7 +12,7 @@ class Dreamer:
 
     iterator = [
         {
-            'iter_n': 30,
+            'iter_n': 40,
             'start_sigma': 1.5,
             'end_sigma': 0.0,
             'start_step_size': 6.0,
@@ -37,7 +37,7 @@ class Dreamer:
         if self.__i_layer >= len(layers):
             self.__i_layer = 0
         self.style_data = gd.get_layers_data(self.net, 'ImagesIn/elephants2.jpg', self.layer)
-        self.subject_data = gd.get_layers_data_image(self.net, self.__input_filter(frame), self.layer)
+        self.subject_data = gd.get_layers_data_image(self.net, self.input_filter(frame), self.layer)
         self.stl.setup_style_iterator(self.iterator[0])
         vis = self.stl.next_frame(self.net, self.style_data, self.subject_data, self.layer)
         return vis
@@ -46,7 +46,7 @@ class Dreamer:
         return self.stl.next_frame(self.net, self.style_data, self.subject_data, self.layer)
 
     @staticmethod
-    def __input_filter(img):
+    def input_filter(img):
         img = cv2.medianBlur(img, 3)
         img = cv2.medianBlur(img, 3)
         img = cv2.medianBlur(img, 3)
