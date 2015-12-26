@@ -1,3 +1,7 @@
 *.pyc
 workspace.xml
-/Paintings
+*.jpg
+!elephants2.jpg
+!BigSue53.jpg
+!imagine.jpg
+
