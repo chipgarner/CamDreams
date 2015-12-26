@@ -42,8 +42,9 @@ class CamDreams:
     old_background = None
     dream_image = None
 
-    # This is to make the edges black on my 1920 X 1200 (16:10 vs 4:3 camera
-    # ) display
+    # This is to make the edges black on my
+    # 1920 X 1200 (16:10 vs 4:3 camera) display
+    # Added text on the edges in the black areas
     black_edges_left_text = np.zeros((480, 768, 3), np.uint8)
     black_edges_right_text = np.zeros((480, 768, 3), np.uint8)
     left_text = cv2.imread('../CamDreams/ImagesIn/sentence2.png')
@@ -54,10 +55,6 @@ class CamDreams:
     def __add_edges(self, image, edges):
         edges[0:480, 64:704] = image
         return edges
-
-    def __show_image(self, image, edges):
-        edges = self.__add_edges(image, edges)
-        cv2.imshow('Video', edges)
 
     def __fade(self, start_image, end_image):
         beta = self.cs.beta
@@ -89,13 +86,16 @@ class CamDreams:
     def __do_state(self, state, frame):
 
         if state == 'show_frames':
-            self.__show_image(frame, self.black_edges_right_text)
+            frame = self.__add_edges(frame, self.black_edges_right_text)
+            cv2.imshow('Video', frame)
         elif state == 'waiting':
-            self.__show_image(frame, self.black_edges_right_text)
+            frame = self.__add_edges(frame, self.black_edges_right_text)
+            cv2.imshow('Video', frame)
         elif state == 'fade_dream_to_frame':
             self.dream_image = self.dr.get_dream_frame()
             frame = self.__fade(self.dream_image, frame)
-            self.__show_image(frame, self.black_edges_left_text)
+            frame = self.__add_edges(frame, self.black_edges_left_text)
+            cv2.imshow('Video', frame)
         elif state == 'fading':
             dream = self.__add_edges(self.dream_image, self.black_edges_left_text)
             frm = self.__add_edges(frame, self.black_edges_right_text)
@@ -104,18 +104,22 @@ class CamDreams:
         elif state == 'fade_backgrounds':
             self.__load_next_background()
             frame = self.__fade(self.old_background, self.background)
-            self.__show_image(frame, self.black_edges_right_text)
+            frame = self.__add_edges(frame, self.black_edges_right_text)
+            cv2.imshow('Video', frame)
         elif state == 'fading_backgrounds':
             frame = self.__fade(self.old_background, frame)
-            self.__show_image(frame, self.black_edges_right_text)
+            frame = self.__add_edges(frame, self.black_edges_right_text)
+            cv2.imshow('Video', frame)
         elif state == 'start_dreaming':
             self.dr.start_dreaming(frame)
         elif state == 'dreaming':
             self.dream_image = self.dr.get_dream_frame()
-            self.__show_image(self.dream_image, self.black_edges_left_text)
+            frame = self.__add_edges(self.dream_image, self.black_edges_left_text)
+            cv2.imshow('Video', frame)
         else:
             print state + ' state not found error.'
-            self.__show_image(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV))
+            frame = self.__add_edges(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV), self.black_edges_right_text)
+            cv2.imshow('Video', frame)
 
     def run(self):
 
