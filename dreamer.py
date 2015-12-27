@@ -7,7 +7,7 @@ import setup_caffe_network as su
 
 class Dreamer:
     def __init__(self):
-        su.SetupCaffe.gpu_on()
+        # su.SetupCaffe.gpu_on()
         self.net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
 
     iterator = [

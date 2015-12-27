@@ -21,7 +21,7 @@ class FaceDetector:
                 scaleFactor=1.1,
                 minNeighbors=3,
                 minSize=(20, 20),
-                flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+                flags=cv2.CASCADE_SCALE_IMAGE  # cv.CV_HAAR_SCALE_IMAGE
         )
 
         got_face = False

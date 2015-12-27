@@ -7,6 +7,8 @@ import display
 import dreamer
 import images
 
+print(cv2.__version__)
+
 iterator = [
     {
         'iter_n': 40,
@@ -21,7 +23,7 @@ iterator = [
 
 layer = 'inception_5a/3x3_reduce'
 
-su.SetupCaffe.gpu_on()
+# su.SetupCaffe.gpu_on()
 net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
 
 style_data = gd.get_layers_data(net, 'ImagesIn/724 pirate ship.jpg', layer)
