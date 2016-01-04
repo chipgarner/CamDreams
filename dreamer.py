@@ -12,7 +12,7 @@ class Dreamer:
 
     iterator = [
         {
-            'iter_n': 40,
+            'iter_n': 100,
             'start_sigma': 1.5,
             'end_sigma': 0.0,
             'start_step_size': 6.0,
@@ -31,7 +31,7 @@ class Dreamer:
 
     def start_dreaming(self, frame):
         layers = ['inception_3b/5x5_reduce', 'inception_4a/5x5_reduce', 'inception_4c/3x3_reduce',
-                  'inception_5b/output']
+                  'inception_5b/3x3_reduce']
         self.layer = layers[self.__i_layer]
         self.__i_layer += 1
         if self.__i_layer >= len(layers):
