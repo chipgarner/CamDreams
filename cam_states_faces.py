@@ -14,7 +14,7 @@ class CamStatesFaces:
     NO_FACES_TIMEOUT = 240000000000
     PERSIST_FACES_TIMER = 5000000000
     FACES_DELAY_TIMER = 20000000000
-    DREAM_OVER = 20000000000
+    DREAM_OVER = 30000000000
 
     def __init__(self):
         self.state = 'waiting'
