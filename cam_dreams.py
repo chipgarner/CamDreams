@@ -10,7 +10,6 @@ class CamDreams:
     def __init__(self):
         self.dr = dreamer.Dreamer()
 
-        # For a full screen window
         self.video_capture = cv2.VideoCapture(0)
         self.cs = cam_states_faces.CamStatesFaces()
 
@@ -29,8 +28,9 @@ class CamDreams:
         self.background = cv2.imread(self.backgrounds[0])
         self.background = images.Images.resize_image(480, 640, self.background)
 
-        cv2.namedWindow("Video", cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty("Video", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+        # For a full screen window
+        # cv2.namedWindow("Video", cv2.WND_PROP_FULLSCREEN)
+        # cv2.setWindowProperty("Video", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
     dr = None
     video_capture = None
@@ -44,6 +44,7 @@ class CamDreams:
 
     # This is to make the edges black on my
     # 1920 X 1200 (16:10 vs 4:3 camera) display
+    # TODO get the screen size and use it
     # Added text on the edges in the black areas
     black_edges_left_text = np.zeros((480, 768, 3), np.uint8)
     black_edges_right_text = np.zeros((480, 768, 3), np.uint8)
@@ -52,7 +53,8 @@ class CamDreams:
     black_edges_left_text[0:480, 0:64] = left_text
     black_edges_right_text[0:248, 704:768] = right_text
 
-    def __add_edges(self, image, edges):
+    @staticmethod
+    def __add_edges(image, edges):
         edges[0:480, 64:704] = image
         return edges
 
@@ -117,7 +119,7 @@ class CamDreams:
             frame = self.__add_edges(self.dream_image, self.black_edges_left_text)
             cv2.imshow('Video', frame)
         else:
-            print state + ' state not found error.'
+            print(state + ' state not found error.')
             frame = self.__add_edges(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV), self.black_edges_right_text)
             cv2.imshow('Video', frame)
 

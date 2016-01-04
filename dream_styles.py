@@ -7,15 +7,12 @@ class Styles:
     def __init__(self):
         pass
 
-    def __blur(self, img, sigma):
+    @staticmethod
+    def __blur(img, sigma):
         if sigma > 0.01:
             img[0] = cv2.GaussianBlur(img[0], (7, 7), sigma)
             img[1] = cv2.GaussianBlur(img[1], (7, 7), sigma)
             img[2] = cv2.GaussianBlur(img[2], (7, 7), sigma)
-        # elif sigma > 0.01:
-        #     img[0] = cv2.medianBlur(img[0], 5)
-        #     img[1] = cv2.medianBlur(img[1], 5)
-        #     img[2] = cv2.medianBlur(img[2], 5)
         return img
 
     @staticmethod
@@ -26,7 +23,8 @@ class Styles:
         return gram
 
     # Modified from DeepDream ipython
-    def __objective_guide(self, dst, subject, style):
+    @staticmethod
+    def __objective_guide(dst, subject, style):
         x = subject
         y = style
         ch = x.shape[0]

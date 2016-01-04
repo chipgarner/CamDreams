@@ -1,13 +1,13 @@
+import sys
+sys.path.insert(0, '/dev/projects/CommonCaffe')
 import get_layer_data as gd
 import dream_styles
 import models as ml
 import cv2
-import setup_caffe_network as su
 
 
 class Dreamer:
     def __init__(self):
-        # su.SetupCaffe.gpu_on()
         self.net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
 
     iterator = [
@@ -31,7 +31,7 @@ class Dreamer:
 
     def start_dreaming(self, frame):
         layers = ['inception_3b/5x5_reduce', 'inception_4a/5x5_reduce', 'inception_4c/3x3_reduce',
-                  'inception_5a/3x3_reduce']
+                  'inception_5b/output']
         self.layer = layers[self.__i_layer]
         self.__i_layer += 1
         if self.__i_layer >= len(layers):

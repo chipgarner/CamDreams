@@ -21,13 +21,12 @@ iterator = [
 ]
 
 
-layer = 'inception_5a/3x3_reduce'
+layer = 'inception_4b/output'
 
-# su.SetupCaffe.gpu_on()
 net = ml.NetModels.setup_googlenet_model('../CommonCaffe/TrainedModels/')
 
-style_data = gd.get_layers_data(net, 'ImagesIn/724 pirate ship.jpg', layer)
-img = cv2.imread('Paintings/BigSue53.jpg')
+style_data = gd.get_layers_data(net, 'ImagesIn/elephants2.jpg', layer)
+img = cv2.imread('Paintings/wondering.jpg')
 img = images.Images.resize_image(480, 640, img)
 dreamer.Dreamer.input_filter(img)
 subject_data = gd.get_layers_data_image(net, img, layer)
@@ -42,5 +41,5 @@ for i in range(0, iterator[0]['iter_n']):
     cv2.waitKey(1)
 
 vis = cv2.cvtColor(vis, cv2.COLOR_RGB2BGR)
-display.Display().showResultPIL(vis)
+display.Display().showResultCV(vis)
 
