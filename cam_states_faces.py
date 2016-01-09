@@ -14,7 +14,7 @@ class CamStatesFaces:
     NO_FACES_TIMEOUT = 240000000000
     PERSIST_FACES_TIMER = 5000000000
     FACES_DELAY_TIMER = 20000000000
-    DREAM_OVER = 30000000000
+    DREAM_OVER = 25000000000
 
     def __init__(self):
         self.state = 'waiting'
@@ -34,11 +34,6 @@ class CamStatesFaces:
                 self.state = 'fade_dream_to_frame'
 
         elif self.state == 'fade_dream_to_frame':
-            # self.dream_count += 1
-            # if self.dream_count > 3:
-            #     self.dream_count = 0
-            #     self.state = 'fade_backgrounds'
-            # else:
             self.state = 'fading'
 
         elif self.state == 'fade_backgrounds':

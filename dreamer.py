@@ -12,11 +12,11 @@ class Dreamer:
 
     iterator = [
         {
-            'iter_n': 70,
+            'iter_n': 30,
             'start_sigma': 1.5,
             'end_sigma': 0.0,
             'start_step_size': 6.0,
-            'end_step_size': 1.0
+            'end_step_size': 2.0
         },
 
     ]
