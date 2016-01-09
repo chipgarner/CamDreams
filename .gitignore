@@ -1,5 +1,6 @@
 *.pyc
 .idea/workspace.xml
+workspace.xml
 *.jpg
 !elephants2.jpg
 !BigSue53.jpg
